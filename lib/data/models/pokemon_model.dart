@@ -1,6 +1,5 @@
 import 'package:pokemon_flutter/domain/entities/pokemon_entity.dart';
 
-/// Formantando retorno da api para o objeto
 class PokemonModel extends PokemonEntity {
   const PokemonModel({required super.name, required super.imageUrl});
 

@@ -11,29 +11,6 @@ class PokemonListPage extends StatefulWidget {
 }
 
 class _PokemonListPageState extends State<PokemonListPage> {
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<PokemonListController>().fetchPokemons(limit: 20);
-    });
-
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels >=
-          _scrollController.position.maxScrollExtent) {
-        context.read<PokemonListController>().loadMore();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +26,7 @@ class _PokemonListPageState extends State<PokemonListPage> {
           }
 
           return ListView.builder(
-            controller: _scrollController,
+            controller: controller.scrollController,
             itemCount: controller.pokemons.length,
             itemBuilder: (context, index) {
               final name = controller.pokemons[index];

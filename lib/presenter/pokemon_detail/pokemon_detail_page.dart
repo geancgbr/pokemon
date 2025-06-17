@@ -39,20 +39,41 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
           ? Center(child: Text(controller.error!))
           : controller.pokemon == null
           ? const Center(child: Text('Pokémon não encontrado'))
-          : Center(
-            child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+          : Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
             Image.network(controller.pokemon!.imageUrl, height: 150),
             const SizedBox(height: 20),
             Text(
               controller.pokemon!.name,
-              style: const TextStyle(fontSize: 24),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-                    ],
+            const SizedBox(height: 20),
+            const Text(
+              'Habilidades:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(height: 10),
+            ...controller.pokemon!.abilities.map((ability) =>
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade100,
+                    borderRadius: BorderRadius.circular(20),
                   ),
-          ),
+                  child: Text(
+                    ability,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ),
+            ).toList(),
+          ],
+        ),
+      ),
     );
   }
 }
